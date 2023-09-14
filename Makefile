@@ -1,4 +1,4 @@
-DEV_VERSION=4.2.6-dev
+DEV_VERSION=4.2.7-dev
 ENV=env GOOS=linux
 TODAY:=$(shell date -u +%Y-%m-%dT%H:%M:%S)
 TIMESTAMP:=$(shell date -u +%Y%m%d%H%M%S)
@@ -6,7 +6,7 @@ GITREV?=$(shell git rev-parse HEAD)
 CELLS_VERSION?=${DEV_VERSION}.${TIMESTAMP}
 
 XGO_TARGETS?="darwin/amd64,windows/amd64"
-XGO_IMAGE?=techknowlogick/xgo:go-1.19.x
+XGO_IMAGE?=techknowlogick/xgo:go-1.21.x
 XGO_BIN?=${GOPATH}/bin/xgo
 
 .PHONY: all clean build main dev
@@ -24,7 +24,7 @@ main:
 	 .
 
 xgo:
-	GO111MODULE=auto ${XGO_BIN} -go 1.19 \
+	GO111MODULE=auto ${XGO_BIN} -go 1.21 \
 	 --image ${XGO_IMAGE} \
 	 --targets ${XGO_TARGETS} \
 	 -ldflags "-X github.com/pydio/cells/v4/common.version=${CELLS_VERSION}\
