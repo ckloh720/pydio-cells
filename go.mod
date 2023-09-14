@@ -449,6 +449,7 @@ require (
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	github.com/zeebo/blake3 v0.2.3 // indirect
+	github.com/ziutek/mymysql v1.5.4 // indirect
 	go.elastic.co/apm v1.15.0 // indirect
 	go.elastic.co/apm/module/apmhttp v1.15.0 // indirect
 	go.elastic.co/apm/module/apmot v1.15.0 // indirect
@@ -505,3 +506,6 @@ retract v4.0.0
 //replace github.com/pydio/caddyvault => /Users/charles/Sources/go/src/github.com/pydio/caddyvault
 
 replace github.com/minio/minio => github.com/pydio/minio v0.0.0-20230809141052-8bd460a77d09
+
+//replace github.com/ory/x => /Users/charles/Sources/go/src/github.com/cdujeu/x
+replace github.com/ory/x => github.com/cdujeu/x v0.0.369-0.20230914084708-c9425748c911
