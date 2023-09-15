@@ -1,4 +1,4 @@
-DEV_VERSION=4.2.7-dev
+DEV_VERSION=4.3.0-dev
 ENV=env GOOS=linux
 TODAY:=$(shell date -u +%Y-%m-%dT%H:%M:%S)
 TIMESTAMP:=$(shell date -u +%Y%m%d%H%M%S)
@@ -16,8 +16,7 @@ all: clean build
 build: main
 
 main:
-	export CGO_ENABLED=0
-	go build -a -trimpath\
+	env CGO_ENABLED=0 go build -a -trimpath \
 	 -ldflags "-X github.com/pydio/cells/v4/common.version=${CELLS_VERSION}\
 	 -X github.com/pydio/cells/v4/common.BuildStamp=${TODAY}\
 	 -X github.com/pydio/cells/v4/common.BuildRevision=${GITREV}"\
@@ -34,7 +33,7 @@ xgo:
 	 .
 
 arm:
-	env GOOS=linux GOARM=7 GOARCH=arm go build -a -trimpath\
+	env CGO_ENABLED=0 GOOS=linux GOARM=7 GOARCH=arm go build -a -trimpath\
 	 -ldflags "-X github.com/pydio/cells/v4/common.version=${CELLS_VERSION}\
 	 -X github.com/pydio/cells/v4/common.BuildStamp=${TODAY}\
 	 -X github.com/pydio/cells/v4/common.BuildRevision=${GITREV}"\
@@ -42,7 +41,7 @@ arm:
 	 .
 
 arm64:
-	env GOOS=linux GOARCH=arm64 go build -a -trimpath\
+	env CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -a -trimpath\
 	 -ldflags "-X github.com/pydio/cells/v4/common.version=${CELLS_VERSION}\
 	 -X github.com/pydio/cells/v4/common.BuildStamp=${TODAY}\
 	 -X github.com/pydio/cells/v4/common.BuildRevision=${GITREV}"\
@@ -50,16 +49,23 @@ arm64:
 	 .
 
 win:
-	env GOOS=windows GOARCH=amd64 go build -a -trimpath\
+	env CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -trimpath\
 	 -ldflags "-X github.com/pydio/cells/v4/common.version=${CELLS_VERSION}\
 	 -X github.com/pydio/cells/v4/common.BuildStamp=${TODAY}\
 	 -X github.com/pydio/cells/v4/common.BuildRevision=${GITREV}"\
 	 -o cells.exe\
 	 .
 
+darwin:
+	env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -trimpath\
+	 -ldflags "-X github.com/pydio/cells/v4/common.version=${CELLS_VERSION}\
+	 -X github.com/pydio/cells/v4/common.BuildStamp=${TODAY}\
+	 -X github.com/pydio/cells/v4/common.BuildRevision=${GITREV}"\
+	 -o cells\
+	 .
+
 dev:
-	export CGO_ENABLED=0
-	go build\
+	env CGO_ENABLED=0 go build\
 	 -tags dev\
 	 -gcflags "all=-N -l"\
 	 -ldflags "-X github.com/pydio/cells/v4/common.version=${DEV_VERSION}\
