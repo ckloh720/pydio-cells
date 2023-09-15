@@ -16,6 +16,7 @@ all: clean build
 build: main
 
 main:
+	export CGO_ENABLED=0
 	go build -a -trimpath\
 	 -ldflags "-X github.com/pydio/cells/v4/common.version=${CELLS_VERSION}\
 	 -X github.com/pydio/cells/v4/common.BuildStamp=${TODAY}\
@@ -57,6 +58,7 @@ win:
 	 .
 
 dev:
+	export CGO_ENABLED=0
 	go build\
 	 -tags dev\
 	 -gcflags "all=-N -l"\
